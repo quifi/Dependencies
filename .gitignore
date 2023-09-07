@@ -16,3 +16,4 @@ tests/
 
 _ReSharper.Caches/
 /**/x64-Debug
+/Dependencies/Properties/launchSettings.json

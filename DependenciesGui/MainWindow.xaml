@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         
         Title="Dependencies" 
-        Icon="Images/Dependencies_32px-no-blur.png"
+        Icon="/Images/Dependencies_32px-no-blur.png"
         HorizontalContentAlignment="Stretch" 
         VerticalContentAlignment="Bottom"
         VerticalAlignment="Bottom"
