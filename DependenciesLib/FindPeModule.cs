@@ -108,6 +108,12 @@ namespace Dependencies
 			);
 		}
 
+		public static Tuple<ModuleSearchStrategy, string> FindPeFromDefault(PE RootPe, string ModuleName, SxsEntries SxsCache, List<string> CustomSearchFolders, string WorkingDirectory)
+		{
+			String PATH = Environment.GetEnvironmentVariable("PATH");
+			return FindPeFromDefault(RootPe, ModuleName, SxsCache, CustomSearchFolders, WorkingDirectory, PATH);
+		}
+
 		// default search order : 
 		// https://msdn.microsoft.com/en-us/library/windows/desktop/ms682586(v=vs.85).aspx
 		// 
@@ -121,7 +127,8 @@ namespace Dependencies
 		//      5. %pwd%
 		//      6. AppDatas
 		//      }
-		public static Tuple<ModuleSearchStrategy, string> FindPeFromDefault(PE RootPe, string ModuleName, SxsEntries SxsCache, List<string> CustomSearchFolders, string WorkingDirectory)
+
+		public static Tuple<ModuleSearchStrategy, string> FindPeFromDefault(PE RootPe, string ModuleName, SxsEntries SxsCache, List<string> CustomSearchFolders, string WorkingDirectory, string pathEnvStr)
         {
             bool Wow64Dll = RootPe.IsWow64Dll();
             string ProcessorArch = RootPe.GetProcessor();
@@ -207,7 +214,7 @@ namespace Dependencies
 
 
 			// 7. Find in PATH
-			string PATH = Environment.GetEnvironmentVariable("PATH");
+			string PATH = pathEnvStr;	// ?? Environment.GetEnvironmentVariable("PATH");
             List<String> PATHFolders = new List<string>(PATH.Split(';'));
 
 			// Filter out empty paths, since it resolve to the current working directory
